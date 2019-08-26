@@ -1,14 +1,15 @@
 
+
+#include "Board.h"
 #include "pieces/Bishop.h"
 #include "pieces/King.h"
 #include "pieces/Knight.h"
 #include "pieces/Pawn.h"
 #include "pieces/Queen.h"
 #include "pieces/Rook.h"
-#include "Board.h"
 #include "BitBoard.h"
-#include "Error.h"
-#include "Debug.h"
+#include "io/Error.h"
+#include "io/Debug.h"
 
 
 static constexpr int NUM_R_B_N = 2; // number of rooks/bishops/knights

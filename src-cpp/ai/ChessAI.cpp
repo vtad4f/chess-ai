@@ -150,18 +150,18 @@ void ChessAI::MyTurn()
 ////////////////////////////////////////////////////////////////////////////////
 void ChessAI::_RefreshState(State& state)
 {
-   static bool beforeFirstMove = true;
-   static std::string last_fen;
-   if (!beforeFirstMove)
-   {
-      ASSERT_NE(last_fen, game->fen);
-      state.Refresh(game->fen);
-   }
-   if (beforeFirstMove)
-   {
-      beforeFirstMove = false;
-   }
-   last_fen = game->fen;
+   // static bool beforeFirstMove = true;
+   // static std::string last_fen;
+   // if (!beforeFirstMove)
+   // {
+      // ASSERT_NE(last_fen, game->fen);
+      // state.Refresh(game->fen);
+   // }
+   // if (beforeFirstMove)
+   // {
+      // beforeFirstMove = false;
+   // }
+   // last_fen = game->fen;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -173,20 +173,20 @@ void ChessAI::_RefreshState(State& state)
 ////////////////////////////////////////////////////////////////////////////////
 void ChessAI::_ApplyLastMoveToState(State& state)
 {
-   static bool beforeFirstMove = true;
-   static size_t last_size;
-   if (!beforeFirstMove)
-   {
-      ASSERT_EQ(last_size + 1, game->moves.size());
-      auto move = game->moves.back();
-      Action action(move->from_file, move->from_rank, move->to_file, move->to_rank, move->promotion);
-      state.ApplyAction(action, true);
-   }
-   if (beforeFirstMove)
-   {
-      beforeFirstMove = false;
-   }
-   last_size = game->moves.size();
+   // static bool beforeFirstMove = true;
+   // static size_t last_size;
+   // if (!beforeFirstMove)
+   // {
+      // ASSERT_EQ(last_size + 1, game->moves.size());
+      // auto move = game->moves.back();
+      // Action action(move->from_file, move->from_rank, move->to_file, move->to_rank, move->promotion);
+      // state.ApplyAction(action, true);
+   // }
+   // if (beforeFirstMove)
+   // {
+      // beforeFirstMove = false;
+   // }
+   // last_size = game->moves.size();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -198,14 +198,14 @@ void ChessAI::_ApplyLastMoveToState(State& state)
 ////////////////////////////////////////////////////////////////////////////////
 void ChessAI::_ApplyActionToGame(const FileRankAction& action)
 {
-   for (auto piece : game->pieces)
-   {
-      if (piece->file == action.start_pos.first &&
-         piece->rank == action.start_pos.second)
-      {
-         piece->move(action.end_pos.first, action.end_pos.second, action.promotion);
-         break; // done!
-      }
-   }
+   // for (auto piece : game->pieces)
+   // {
+      // if (piece->file == action.start_pos.first &&
+         // piece->rank == action.start_pos.second)
+      // {
+         // piece->move(action.end_pos.first, action.end_pos.second, action.promotion);
+         // break; // done!
+      // }
+   // }
 }
 
