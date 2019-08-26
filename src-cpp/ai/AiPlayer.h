@@ -14,13 +14,11 @@ class AiPlayer
 public:
    std::string GetName() const;
    void Init();
-   void GameUpdated();
    void GameOver();
-   void MyTurn();
+   void MyTurn(const std::string& fen, double time_remaining_s, int current_turn);
    
 private:
-   void _RefreshState(State& state);
-   void _ApplyLastMoveToState(State& state);
+   void _RefreshState(State& state, const std::string& fen);
    void _ApplyActionToGame(const FileRankAction& action);
 };
 

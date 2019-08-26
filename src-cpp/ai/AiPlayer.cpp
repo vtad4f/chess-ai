@@ -33,7 +33,7 @@ void AiPlayer::Init()
    std::cerr << "srand(" << seed << ")" << std::endl;
    srand(seed);
    
-   // Parse args
+   // Parse args (TODO)
    static const std::string verboseStr   = ""; // get_setting("verbose");
    static const std::string randomStr    = ""; // get_setting("random");
    static const std::string alphaBStr    = ""; // get_setting("alpha_beta");
@@ -106,34 +106,34 @@ void AiPlayer::GameOver()
 ///   @brief  Called when it's your turn
 ///
 ////////////////////////////////////////////////////////////////////////////////
-void AiPlayer::MyTurn()
+void AiPlayer::MyTurn(const std::string& fen, double time_remaining_s, int current_turn)
 {
    try
    {
-      // // Stop pondering
-      // Pondering::Instance().Stop();
+      // Stop pondering
+      Pondering::Instance().Stop();
       
-      // // Quit if turn limit exceeded
-      // static Settings& settings = Settings::Instance();
-      // settings.UpdateBeforeTurn(game->current_turn);
-      // if (settings.turn_limit && game->current_turn >= settings.turn_limit)
-      // {
-         // return true; // Turn limit?
-      // }
+      // Quit if turn limit exceeded
+      static Settings& settings = Settings::Instance();
+      settings.UpdateBeforeTurn(current_turn);
+      if (settings.turn_limit && current_turn >= settings.turn_limit)
+      {
+         return; // Turn limit?
+      }
       
-      // // Prep
-      // static State state(game->fen); // Get the initial state
-      // RefreshState(state); // Apply opponent's move
-      // Timer::Instance().Restart(player->time_remaining); // Reset time limit
+      // Prep
+      static State state(fen); // Get the initial state
+      _RefreshState(state, fen); // Apply opponent's move
+      Timer::Instance().Restart(time_remaining_s); // Reset time limit
       
-      // // Pick a move to make
-      // Action action = settings.random ? AiHelper::Random(state) : AiHelper::ID_DL_MiniMax(state);
-      // debug::PrintAction(action);
+      // Pick a move to make
+      Action action = settings.random ? AiHelper::Random(state) : AiHelper::ID_DL_MiniMax(state);
+      debug::PrintAction(action);
       
-      // // Apply the move
-      // state.ApplyAction(action, true);
-      // Pondering::Instance().Start(state); // Start pondering
-      // ApplyActionToGame(action); // Apply my move
+      // Apply the move
+      state.ApplyAction(action, true);
+      Pondering::Instance().Start(state); // Start pondering
+      // _ApplyActionToGame(action); // Apply my move
    }
    catch (const Error& e)
    {
@@ -148,45 +148,20 @@ void AiPlayer::MyTurn()
 ///   @param state  This is the state to apply the fen to
 ///
 ////////////////////////////////////////////////////////////////////////////////
-void AiPlayer::_RefreshState(State& state)
+void AiPlayer::_RefreshState(State& state, const std::string& fen)
 {
-   // static bool beforeFirstMove = true;
-   // static std::string last_fen;
-   // if (!beforeFirstMove)
-   // {
-      // ASSERT_NE(last_fen, game->fen);
-      // state.Refresh(game->fen);
-   // }
-   // if (beforeFirstMove)
-   // {
-      // beforeFirstMove = false;
-   // }
-   // last_fen = game->fen;
-}
-
-////////////////////////////////////////////////////////////////////////////////
-///
-///   @brief  Apply the last action to the state
-///
-///   @param state  This is the state to apply the action to
-///
-////////////////////////////////////////////////////////////////////////////////
-void AiPlayer::_ApplyLastMoveToState(State& state)
-{
-   // static bool beforeFirstMove = true;
-   // static size_t last_size;
-   // if (!beforeFirstMove)
-   // {
-      // ASSERT_EQ(last_size + 1, game->moves.size());
-      // auto move = game->moves.back();
-      // Action action(move->from_file, move->from_rank, move->to_file, move->to_rank, move->promotion);
-      // state.ApplyAction(action, true);
-   // }
-   // if (beforeFirstMove)
-   // {
-      // beforeFirstMove = false;
-   // }
-   // last_size = game->moves.size();
+   static bool beforeFirstMove = true;
+   static std::string last_fen;
+   if (!beforeFirstMove)
+   {
+      ASSERT_NE(last_fen, fen);
+      state.Refresh(fen);
+   }
+   if (beforeFirstMove)
+   {
+      beforeFirstMove = false;
+   }
+   last_fen = fen;
 }
 
 ////////////////////////////////////////////////////////////////////////////////

@@ -36,18 +36,15 @@ Timer::Timer()
 ///
 ///   @brief  Reset the start time used in the 'Elapsed' calculation
 ///
-///   @param time_remaining_ns  Time remaining for the player in nanoseconds
+///   @param remaining_s  Time remaining for the player in seconds
 ///
 ////////////////////////////////////////////////////////////////////////////////
-void Timer::Restart(double time_remaining_ns)
+void Timer::Restart(double remaining_s)
 {
-   static const double NS_TO_S = 1000000000.0;
-   double remaining_s = time_remaining_ns / NS_TO_S;
-   
    // Initialize the total seconds in the game
    if (m_SecondsInGame == 0.0)
    {
-      m_SecondsInGame = time_remaining_ns / NS_TO_S;
+      m_SecondsInGame = remaining_s;
    }
    
    // If there is a positive seconds limit setting, use it as is

@@ -26,7 +26,7 @@ public:
    static Timer& Instance();
    Timer();
    
-   void Restart(double time_remaining_ns = 0.0);
+   void Restart(double remaining_s = 0.0);
    double Elapsed() const;
    void CheckOutOfTime(int depth);
    
