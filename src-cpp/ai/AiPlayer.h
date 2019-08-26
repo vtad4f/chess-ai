@@ -9,7 +9,7 @@
 ///   @brief  This is the top-level of the 
 ///
 ////////////////////////////////////////////////////////////////////////////////
-class ChessAI
+class AiPlayer
 {
 public:
    std::string GetName() const;

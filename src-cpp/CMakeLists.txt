@@ -7,8 +7,8 @@ set (SRC
    ai/Action.h
    ai/AiHelper.cpp
    ai/AiHelper.h
-   ai/ChessAI.cpp
-   ai/ChessAI.h
+   ai/AiPlayer.cpp
+   ai/AiPlayer.h
    ai/HeuristicValue.cpp
    ai/HeuristicValue.h
    ai/HistoryTable.cpp

@@ -1,6 +1,6 @@
 
 
-#include "ChessAI.h"
+#include "AiPlayer.h"
 #include "AiHelper.h"
 #include "Pondering.h"
 #include "Timer.h"
@@ -16,7 +16,7 @@
 ///   @return  The name of the AI
 ///
 ////////////////////////////////////////////////////////////////////////////////
-std::string ChessAI::GetName() const
+std::string AiPlayer::GetName() const
 {
    return "VolcanicCounter";
 }
@@ -27,7 +27,7 @@ std::string ChessAI::GetName() const
 ///   @brief  Get the name of the AI
 ///
 ////////////////////////////////////////////////////////////////////////////////
-void ChessAI::Init()
+void AiPlayer::Init()
 {
    unsigned int seed = static_cast<unsigned int>(time(NULL));
    std::cerr << "srand(" << seed << ")" << std::endl;
@@ -94,7 +94,7 @@ void ChessAI::Init()
 ///   @brief  Called when the game ends
 ///
 ////////////////////////////////////////////////////////////////////////////////
-void ChessAI::GameOver()
+void AiPlayer::GameOver()
 {
    std::cerr << "ended!" << std::endl;
    Pondering::Instance().Stop();
@@ -106,7 +106,7 @@ void ChessAI::GameOver()
 ///   @brief  Called when it's your turn
 ///
 ////////////////////////////////////////////////////////////////////////////////
-void ChessAI::MyTurn()
+void AiPlayer::MyTurn()
 {
    try
    {
@@ -148,7 +148,7 @@ void ChessAI::MyTurn()
 ///   @param state  This is the state to apply the fen to
 ///
 ////////////////////////////////////////////////////////////////////////////////
-void ChessAI::_RefreshState(State& state)
+void AiPlayer::_RefreshState(State& state)
 {
    // static bool beforeFirstMove = true;
    // static std::string last_fen;
@@ -171,7 +171,7 @@ void ChessAI::_RefreshState(State& state)
 ///   @param state  This is the state to apply the action to
 ///
 ////////////////////////////////////////////////////////////////////////////////
-void ChessAI::_ApplyLastMoveToState(State& state)
+void AiPlayer::_ApplyLastMoveToState(State& state)
 {
    // static bool beforeFirstMove = true;
    // static size_t last_size;
@@ -196,7 +196,7 @@ void ChessAI::_ApplyLastMoveToState(State& state)
 ///   @param action  This is the move to make
 ///
 ////////////////////////////////////////////////////////////////////////////////
-void ChessAI::_ApplyActionToGame(const FileRankAction& action)
+void AiPlayer::_ApplyActionToGame(const FileRankAction& action)
 {
    // for (auto piece : game->pieces)
    // {
