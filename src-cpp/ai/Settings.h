@@ -13,8 +13,6 @@ struct Settings
    Settings& operator = (const Settings& other);
    
    void Validate();
-   void UpdateBeforeTurn(int current_turn);
-   void DecrementDL(int current_turn);
    
    bool silent;
    bool verbose;
@@ -27,8 +25,6 @@ struct Settings
    int quiescent;
    int min_depth_limit;
    int max_depth_limit;
-   bool decrement_dl;
-   int turn_limit;
    int which_ai;
    bool even_depths_only;
    bool test; // set only if unit testing

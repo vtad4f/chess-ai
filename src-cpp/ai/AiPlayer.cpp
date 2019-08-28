@@ -40,18 +40,15 @@ void AiPlayer::Init()
    static const std::string htableStr    = ""; // get_setting("history_table");
    static const std::string ponderingStr = ""; // get_setting("pondering");
    static const std::string sLimitStr    = ""; // get_setting("seconds_limit");
-   static const std::string tLimitStr    = ""; // get_setting("turn_limit");
    static const std::string qLimitStr    = ""; // get_setting("quiescent");
    static const std::string dLimitStr    = ""; // get_setting("depth_limit");
-   static const std::string decrDLStr    = ""; // get_setting("decrement_dl");
    static const std::string whichAiStr   = ""; // get_setting("which_ai");
    static const std::string evenOnlyStr  = ""; // get_setting("even_depths_only");
-   
-   static const int verboseInt = verboseStr.empty() ? -1 : std::stoi(verboseStr);
    
    // Initialize settings
    static Settings& settings = Settings::Instance();
    
+   static const int verboseInt = verboseStr.empty() ? -1 : std::stoi(verboseStr);
    settings.silent           = (verboseInt == 0);
    settings.verbose          = (verboseInt >= 1);
    settings.very_verbose     = (verboseInt >= 2);
@@ -60,10 +57,8 @@ void AiPlayer::Init()
    settings.history_table    = htableStr.empty()    ?  1 : std::stoi(htableStr);
    settings.pondering        = ponderingStr.empty() ?  0 : std::stoi(ponderingStr);
    settings.seconds_limit    = sLimitStr.empty()    ? -1 : std::stod(sLimitStr);
-   settings.turn_limit       = tLimitStr.empty()    ?  0 : std::stoi(tLimitStr);
    settings.quiescent        = qLimitStr.empty()    ?  2 : std::stoi(qLimitStr);
    settings.max_depth_limit  = dLimitStr.empty()    ?  0 : std::stoi(dLimitStr);
-   settings.decrement_dl     = decrDLStr.empty()    ?  0 : std::stoi(decrDLStr);
    settings.even_depths_only = evenOnlyStr.empty()  ?  1 : std::stoi(evenOnlyStr);
    
    settings.min_depth_limit = 2; // Must exceed this before a move can run out of time
@@ -106,25 +101,21 @@ void AiPlayer::GameOver()
 ///   @brief  Called when it's your turn
 ///
 ////////////////////////////////////////////////////////////////////////////////
-void AiPlayer::MyTurn(const std::string& fen, double time_remaining_s, int current_turn)
+void AiPlayer::MyTurn(const std::string& fen, double seconds_limit)
 {
    try
    {
       // Stop pondering
       Pondering::Instance().Stop();
       
-      // Quit if turn limit exceeded
-      static Settings& settings = Settings::Instance();
-      settings.UpdateBeforeTurn(current_turn);
-      if (settings.turn_limit && current_turn >= settings.turn_limit)
-      {
-         return; // Turn limit?
-      }
+      // Get the initial state and apply opponent's move
+      static State state(fen);
+      _RefreshState(state, fen);
       
-      // Prep
-      static State state(fen); // Get the initial state
-      _RefreshState(state, fen); // Apply opponent's move
-      Timer::Instance().Restart(time_remaining_s); // Reset time limit
+      // Reset time limit
+      static Settings& settings = Settings::Instance();
+      settings.seconds_limit = seconds_limit;
+      Timer::Instance().Restart();
       
       // Pick a move to make
       Action action = settings.random ? AiHelper::Random(state) : AiHelper::ID_DL_MiniMax(state);
@@ -162,25 +153,5 @@ void AiPlayer::_RefreshState(State& state, const std::string& fen)
       beforeFirstMove = false;
    }
    last_fen = fen;
-}
-
-////////////////////////////////////////////////////////////////////////////////
-///
-///   @brief  Apply the action to the game
-///
-///   @param action  This is the move to make
-///
-////////////////////////////////////////////////////////////////////////////////
-void AiPlayer::_ApplyActionToGame(const FileRankAction& action)
-{
-   // for (auto piece : game->pieces)
-   // {
-      // if (piece->file == action.start_pos.first &&
-         // piece->rank == action.start_pos.second)
-      // {
-         // piece->move(action.end_pos.first, action.end_pos.second, action.promotion);
-         // break; // done!
-      // }
-   // }
 }
 

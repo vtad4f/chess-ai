@@ -509,10 +509,6 @@ bool AiHelper::ShouldPrint(const MyNode& node)
       {
          return true;
       }
-      else if (settings.very_verbose && settings.turn_limit == 1 && settings.max_depth_limit <= 3)
-      {
-         return true;
-      }
    }
    return false;
 }
