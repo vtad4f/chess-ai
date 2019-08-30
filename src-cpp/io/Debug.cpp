@@ -146,7 +146,7 @@ void PrintAction(const Action& action, const std::string& prefix_msg)
    const Settings& settings = Settings::Instance();
    if (!settings.silent)
    {
-      std::cerr << prefix_msg
+      std::cout << prefix_msg
                 << Translate::PosToAlgebraicStr(action.start_pos) << " --> "
                 << Translate::PosToAlgebraicStr(action.end_pos)
                 << (action.promoted ? " " + Translate::PromotionIntToStr(action.promoted_type) : "") << std::endl;

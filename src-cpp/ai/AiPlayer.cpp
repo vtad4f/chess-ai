@@ -101,7 +101,7 @@ void AiPlayer::GameOver()
 ///   @brief  Called when it's your turn
 ///
 ////////////////////////////////////////////////////////////////////////////////
-void AiPlayer::MyTurn(const std::string& fen, double seconds_limit)
+void AiPlayer::MyTurn(const std::string& fen, double turn_limit_s)
 {
    try
    {
@@ -114,7 +114,7 @@ void AiPlayer::MyTurn(const std::string& fen, double seconds_limit)
       
       // Reset time limit
       static Settings& settings = Settings::Instance();
-      settings.seconds_limit = seconds_limit;
+      settings.seconds_limit = turn_limit_s;
       Timer::Instance().Restart();
       
       // Pick a move to make
