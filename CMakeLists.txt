@@ -55,24 +55,20 @@ set (SRC
    pieces/Rook.cpp
    pieces/Rook.h
    
-   # test/additional_files.txt
-   # test/CMakeLists.txt
+   # test/BitBoardTester.cpp
+   # test/BitBoardTester.h
+   # test/BoardTester.cpp
+   # test/BoardTester.h
    # test/main.cpp
-   # test/makefile
-   # test/tests
-   # test/tests/BitBoardTester.cpp
-   # test/tests/BitBoardTester.h
-   # test/tests/BoardTester.cpp
-   # test/tests/BoardTester.h
-   # test/tests/ParserTester.cpp
-   # test/tests/ParserTester.h
-   # test/tests/TranslateTester.cpp
-   # test/tests/TranslateTester.h
+   # test/ParserTester.cpp
+   # test/ParserTester.h
+   # test/TranslateTester.cpp
+   # test/TranslateTester.h
    
    main.cpp
 )
 
-set (proj chess)
+set (proj chess-ai)
 project(${proj})
 add_executable(${proj} ${SRC})
 include_directories(${proj} . )
