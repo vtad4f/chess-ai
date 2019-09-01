@@ -153,7 +153,7 @@ void BoardTester::test_MoveSequence4()
    const std::string fen3 = "r6r/p1p2kpp/2p2P2/3p4/1P2PPb1/8/PP4PP/R1B1K2R b KQ f3 0 2";  Action a34("a8", "e8"); // Black rook right
    const std::string fen4 = "4r2r/p1p2kpp/2p2P2/3p4/1P2PPb1/8/PP4PP/R1B1K2R w KQ - 1 3";  Action a45("f6", "g7"); // White pawn up-right (captures black pawn)
    const std::string fen5 = "4r2r/p1p2kPp/2p5/3p4/1P2PPb1/8/PP4PP/R1B1K2R b KQ - 0 3";    Action a56("a7", "a5"); // Black pawn down 2
-   const std::string fen6 = "4r2r/2p2kPp/2p5/p2p4/1P2PPb1/8/PP4PP/R1B1K2R w KQ a6 0 4";   Action a67("g7", "f8", "Queen"); // Illegal action
+   const std::string fen6 = "4r2r/2p2kPp/2p5/p2p4/1P2PPb1/8/PP4PP/R1B1K2R w KQ a6 0 4";   Action a67("g7", "f8", "q"); // Illegal action
    
    // Settings::Instance().verbose = true;
    

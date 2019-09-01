@@ -118,7 +118,7 @@ std::string Translate::PosToAlgebraicStr(int pos)
 std::string Translate::PromotionIntToStr(int promotion)
 {
    ASSERT_IN_RANGE(promotion, 0, 4);
-   static const std::string NAME[4] = {"Queen", "Rook", "Bishop", "Knight"};
+   static const std::string NAME[4] = {"q", "r", "b", "n"};
    return NAME[promotion];
 }
 
@@ -130,19 +130,19 @@ std::string Translate::PromotionIntToStr(int promotion)
 ////////////////////////////////////////////////////////////////////////////////
 uint8_t Translate::PromotionStrToInt(const std::string& promotion)
 {
-   if (promotion == "Queen")
+   if (promotion == "q")
    {
       return PROMOTED_TO_Q;
    }
-   else if (promotion == "Rook")
+   else if (promotion == "r")
    {
       return PROMOTED_TO_R;
    }
-   else if (promotion == "Bishop")
+   else if (promotion == "b")
    {
       return PROMOTED_TO_B;
    }
-   else if (promotion == "Knight")
+   else if (promotion == "n")
    {
       return PROMOTED_TO_N;
    }
