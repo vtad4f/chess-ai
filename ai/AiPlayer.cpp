@@ -76,7 +76,7 @@ void AiPlayer::Init()
 ///   @brief  Called when it's your turn
 ///
 ////////////////////////////////////////////////////////////////////////////////
-void AiPlayer::MyTurn(const std::string& fen, double turn_limit_s)
+void AiPlayer::MyTurn(const std::string& fen, double remaining_s)
 {
    try
    {
@@ -88,12 +88,10 @@ void AiPlayer::MyTurn(const std::string& fen, double turn_limit_s)
       _RefreshState(state, fen);
       
       // Reset time limit
-      static Settings& settings = Settings::Instance();
-      settings.seconds_limit = turn_limit_s;
-      Timer::Instance().Restart();
+      Timer::Instance().Restart(remaining_s);
       
       // Pick a move to make
-      Action action = settings.random ? AiHelper::Random(state) : AiHelper::ID_DL_MiniMax(state);
+      Action action = Settings::Instance().random ? AiHelper::Random(state) : AiHelper::ID_DL_MiniMax(state);
       debug::PrintAction(action);
       
       // Apply the move
