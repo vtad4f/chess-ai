@@ -13,7 +13,7 @@ class AiPlayer
 {
 public:
    void Init();
-   void MyTurn(const std::string& fen, double remaining_s);
+   void MyTurn(const std::string& fen, double turn_limit_s);
    
 private:
    void _RefreshState(State& state, const std::string& fen);
